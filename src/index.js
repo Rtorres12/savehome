@@ -38,7 +38,7 @@ app.use(myConnection(mysql, {
     user: 'savehome',
     password: 'Save2Home$',
     database: 'savehomebd',
-    port: '3306' 
+    port: '3306'
 },'single'));
 app.use(express.urlencoded({extended: false}));
 
