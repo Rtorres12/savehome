@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <%- include ('partials/head.html')%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/0.1.1/scrollReveal.min.js" integrity="sha512-FDQlM/I5n8d3aaXq+RCosJqohfgGdhzGeOR2SFdiN0nSfEp6MD+L1WvRGduPVu3DPO1yjDav7ICmoa3wJyVlxg==" crossorigin="anonymous"></script>
+
+    <title>Document</title>
+<style>        h6.error{ color: red;}
+</style>
+  </head>
+<body>
+    <%- include ('partials/nav.html')%>
+
+ 
+  <button type="btn btn-waning" class="mt-3 mb-3 ml-3 btn btn-outline-warning" data-toggle="modal" data-target="#modal-nuevoProd">
+    <i class="fas fa-plus"></i>  </button>
+  
+
+
+
+  <div class="modal fade" id="modal-nuevoProd" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-title">Registrar nuevo producto</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="productoform" action="/nuevoProd" method="POST" enctype="multipart/form-data" class="form-group">
+
+            <input type="file" name="prodImg" id="prodImg" accept="image/*" multiple />
+
+
+            <label >Categoria</label>
+
+           <select class="custom-select" name="id_cat" >
+            <% for (var j = 0 ; j < data1.length ; j++ ) {%>
+              <option value="<%= data1[j].id_cat%>"><%=data1[j].categoria%></option>
+              <%}%>
+           </select>
+
+                    
+            <label >Producto</label>
+            <input type="text" name="nom_producto" class="form-control" >
+           
+            <label >Caracteristicas</label>
+              <input type="text" name="caracteristicas" class="form-control" >
+           
+              <label >Stock</label>
+                <input type="text" name="stock" class="form-control" >
+           
+                <label >Precio unitario</label>
+                  <input type="text" name="precio" class="form-control" >
+                 
+                  <div class="input-group mb-3 mt-3">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <input name="disponible" type="checkbox">
+                      </div>
+                    </div>
+                    <label type="text" class="form-control" aria-label="Text input with checkbox">Disponible</label>
+                  </div>
+        
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" id="nuevoProd" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+  
+    
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+
+            <th scope="col">Imagen1</th>
+            <th scope="col">Imagen2</th>
+            <th scope="col">Imagen3</th>
+
+            <th scope="col">Producto</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">descripcion</th>
+            <th scope="col">stock</th>
+            <th scope="col">disponible</th>
+            <th scope="col">recomendado</th>
+
+            <th scope="col">Mantenimiento</th>
+            
+            
+        </tr>
+        </thead>
+        <tbody>
+          <%if (data) {%>
+            <% for (var i = 0 ; i < data.length ; i++ ) {%>
+              <div class="modal fade" id="modal-editProd<%=data[i].id_prod%>" disabled tabindex="-1" aria-labelledby="" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modal-title">editar producto</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form id="productoform1" action="/editProd/<%=data[i].id_prod%>" method="POST" enctype="multipart/form-data" class="form-group">
+                        
+                       <input type="file" name="prodImg" value="" accept="image/*" multiple />
+
+                        <input type="hidden" name="previmg" value="<%=data[i].prodImg%>">
+                        <input type="hidden" name="previmg2" value="<%=data[i].prodImg2%>">
+                        <input type="hidden" name="previmg3" value="<%=data[i].prodImg3%>">
+                        
+                        
+                        <label >Id producto</label>
+                        <input type="text" disabled name="id_prod" value="<%=data[i].id_prod%>" class="disabled form-control" >
+                        <label >Categoria</label>
+                        
+                       <select class="custom-select" name="id_cat" >
+                        <% for (var j = 0 ; j < data1.length ; j++ ) {%>
+                          <option value="<%= data1[j].id_cat%> "><%=data1[j].categoria%></option>
+                          <%}%>
+                       </select>
+
+                        <label >Producto</label>
+                        <input type="text" name="nom_producto" value="<%=data[i].nom_producto%>" class="form-control" >
+                       
+                        <label >Caracteristicas</label>
+                          <input type="text" name="caracteristicas" value="<%=data[i].caracteristicas%>" class="form-control" >
+                       
+                          <label >Stock</label>
+                            <input type="text" name="stock"  value="<%=data[i].stock%>" class="form-control" >
+                       
+                            <label >Precio unitario</label>
+                              <input type="text" name="precio"  value="<%=data[i].precio%>" class="form-control" >
+                             
+                              <%if(data[i].disponible=="off"){%>
+                                <div class="form-check form-check-inline col-md-6 ">
+                                  <input class="form-check-input" type="radio" name="disponible" id="exampleRadios1" value="on" >
+                                  <label class="form-check-label" for="inlineCheckbox1">            DISPONIBLE                              
+                                  </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input " type="radio" name="disponible" id="exampleRadios2" value="off" checked>
+                                  <label class="form-check-label" for="inlineCheckbox2">    NO DISPONIBLE                                                  
+                                  </label>
+                                </div>
+                                
+                            <%}else{%>
+                             
+                              <div class="form-check form-check-inline col-md-6">
+                                <input class="form-check-input" type="radio" name="disponible" id="exampleRadios1" value="on" checked>
+                                <label class="form-check-label" for="inlineCheckbox1">                                  DISPONIBLE   
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline ">
+                                <input class="form-check-input " type="radio" name="disponible" id="exampleRadios2" value="off" >
+                                <label class="form-check-label" for="inlineCheckbox2">                                                           NO DISPONIBLE
+                                </label>
+                              </div>
+                              <%}%>
+
+
+                              <%if( data[i].recomendado == "off"){%>
+                              <div class="form-check form-check-inline col-md-6">
+                                <input class="form-check-input" type="radio" name="recomendado" id="exampleRadios1" value="on" >
+                                <label class="form-check-label" for="inlineCheckbox1">                                  recomendado   
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input " type="radio" name="recomendado" id="exampleRadios2" value="off" checked>
+                                <label class="form-check-label" for="inlineCheckbox2">                                                           NO recomendado
+                                </label>
+                              </div>
+
+                              <%}else{console.log('ON') %>
+                                <div class="form-check form-check-inline col-md-6">
+                                  <input class="form-check-input" type="radio" name="recomendado" id="exampleRadios1" value="on" checked>
+                                  <label class="form-check-label" for="inlineCheckbox1">                                  recomendado   
+                                  </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input " type="radio" name="recomendado" id="exampleRadios2" value="off" >
+                                  <label class="form-check-label" for="inlineCheckbox2">                                                           NO recomendado
+                                  </label>
+                                </div>
+                                <%}%>
+                            </div>
+
+                              
+
+                              
+                  
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" id="editProd" class="btn btn-primary">Save changes</a>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+            <tr>
+
+              <td><%= data[i].id_prod %></th>
+
+              <td width="100" > <img src="/prodImg/<%= data[i].prodImg%>" class="img-fluid" alt="no hay"></th>
+                <td width="100" > <img src="/prodImg/<%= data[i].prodImg2%>" class="img-fluid" alt="no hay"></th>
+                  <td width="100" > <img src="/prodImg/<%= data[i].prodImg3%>" class="img-fluid" alt="no hay"></th>
+
+              
+              <td><%= data[i].nom_producto %></td>
+              <td><%= data[i].precio %></td>
+              <td><%= data[i].categoria %></td>
+              <td><%= data[i].caracteristicas %></td>
+
+              <td><%= data[i].stock %></td>
+              <td> 
+                <%if (data[i].disponible =='on' ){%>
+                  <i class="text-success h3 fas fa-check"></i>
+                  <%}else{%>
+                    <i class="text-danger h3 fas fa-times-circle"></i>
+                    <%}%>
+              </td>
+              <td>  <%if (data[i].recomendado =='on' ){%>
+                <i class="text-success h3 fas fa-check"></i>
+                <%}else{%>
+                  <i class="text-danger h3 fas fa-times-circle"></i>
+                  <%}%></td>
+            <td><a  data-toggle="modal" data-target="#modal-editProd<%=data[i].id_prod%>" id="editar" value="<%=data[i].id_prod %>" class="btn btn-warning"><i class="fas fa-edit"> </i></a> <a href="/deleteProd/<%=data[i].id_prod %>" class=" btn btn-warning"><i class="fas fa-trash-alt"></i></a></td>
+            </tr>
+           <%}%>
+            <%}%>
+        </tbody>
+      </table>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+      <script src="/js/jquery.validate.min.js"></script>
+      <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Chango&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Chango&family=Dancing+Script:wght@600&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;300&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;300&family=Roboto&family=Work+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+.medium-font{
+    text-align: center;
+    font-family: 'Lexend', sans-serif;
+    font-size: 36px;
+}
+.card-container{
+width: 60%;
+}
+.card{
+border: none !important;
+width: 100%;
+}
+.card-prod{
+   
+    background-color: #FFD007;
+    border-radius: 10px;
+    display: flex;
+
+}
+.card-container{
+    display: flex;
+}
+.banner-text{
+    font-family: 'Lexend', sans-serif;
+    font-size: x-large;
+    color: white;
+    
+}
+.carousel-control-prev{
+    z-index: 3;
+}
+.carousel-control-next{
+    z-index: 3;
+}
+.banner-tittle{
+    font-family: 'Lexend', sans-serif;
+    color: white;
+
+}
+#carousel-img{
+position: relative;
+
+
+
+}
+#text-img{
+position: absolute;
+z-index: 2;
+
+}
+
+
+.navbar{
+    background-color: orange;
+    font-family: 'Work Sans', sans-serif;   
+     font-size: 20px;
+    
+
+}
+.navbar-brand{
+
+    font-size: 28px;
+    font-family: 'Fredoka One', cursive;    
+    text-decoration: underline white;  
+}
+.shadow{
+
+  box-shadow: 10px 5px 5px black;;
+
+}
+.tns-controls{
+   display: flex; 
+}
+.products-list .product-item{
+
+	transition: all .4s;
+}
+.top-content .carousel-control-prev {
+    border-bottom: 0;
+    font-size: 40px;
+    color: #444;
+}
+ 
+.top-content .carousel-control-next {
+    border-bottom: 0;
+    font-size: 40px;
+    color: #444;
+}
