@@ -34,11 +34,11 @@ app.use(multer({
 app.use(morgan('dev'));
 app.use(myConnection(mysql, {
     
-    host: 'database-server',
-    user: 'savehome',
-    password: 'Save2Home$',
-    database: 'savehomebd',
-    port: '3306' 
+    host: process.env.HOST_NAME,
+    user: process.env.USER,
+    password: process.env.USER_PASSWORD,
+    database: process.env.DATABASE_NAME,
+    port: process.env.PORT
 },'single')) ;
 app.use(express.urlencoded({extended: false}));
 
