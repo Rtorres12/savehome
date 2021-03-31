@@ -35,7 +35,7 @@ app.use(morgan('dev'));
 app.use(myConnection(mysql, {
     host: process.env.DATABASE_HOST,
     user: 'savehome',
-    password: 'savehome',
+    password: 'save2Home$',
     database: 'savehomebd',
     port: '3306'
 },'single')) ;
