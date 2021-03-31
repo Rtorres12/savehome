@@ -33,10 +33,6 @@ app.use(multer({
 
 app.use(morgan('dev'));
 app.use(myConnection(mysql, {
-<<<<<<< HEAD
-    
-=======
->>>>>>> ecdb61857e4f95b72da86e8cd8787e31fa454953
     host: process.env.DATABASE_HOST,
     user: 'savehome',
     password: 'save2Home$',
