@@ -33,7 +33,7 @@ app.use(multer({
 
 app.use(morgan('dev'));
 app.use(myConnection(mysql, {
-    
+    connectionLimit:10,
     host: 'savehome-server',
     user: 'savehome',
     password: 'savehome',
