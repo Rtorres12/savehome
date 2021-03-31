@@ -134,8 +134,8 @@
     <a class="btn btn-block btn-warning category_item"  category="<%=data1[j].categoria %>" ><%=data1[j].categoria%></a>
 <%}%>
   </div>
-  <div class="col mt-3" >
-    <div class="products-list row">
+  <div class="col mt-3 " >
+    <div class="products-list row d-flex justify-content-center">
       <%for (var i=0 ; i < data.length ; i ++ ){%>
 
         <div class="modal fade " id="modalProd<%=data[i].id_prod%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -272,23 +272,23 @@ scroll.animateScroll(1200);
       sr.reveal('.header-content-left',{
         duration: 2000,
         origin: 'left',
-        distance: '300px'
+        distance: '150px'
       });
       sr.reveal('.header-content-right',{
         duration: 2000,
         origin: 'left',
-        distance: '300px'
+        distance: '150px'
       });
       sr.reveal('.info-left',{
         duration: 2000,
         origin: 'left',
-        distance: '300px'
+        distance: '150px'
       });
 
       sr.reveal('.info-right',{
         duration: 2000,
         origin: 'left',
-        distance: '300px'
+        distance: '150px'
       });
 
     

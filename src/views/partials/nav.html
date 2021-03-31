@@ -1,21 +1,24 @@
 
 <nav class=" navbar navbar-expand-lg navbar-light shadow">
   
-  <a class="navbar-brand ml-5" href="/"><img src="/img/SaveHome.png" class="img-fluid" alt=""></a>
+  <a class="navbar-brand ml-2" href="/"><img src="/img/SaveHome.png" class="img-fluid" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <form  action="/productoFil" method="post" class="form-inline ml-1 ">
-      <input class="form-control mr-lg-2" name="val" type="text" placeholder="Tablets, laptops ..." aria-label="Search">
-      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar </button>
-      
-    </form>
+    
 
 
 
     <div class="collapse navbar-collapse" id="navbarNav">
+      <form  action="/productoFil" method="post" class="form-inline ml-1 ">
+
+        <input class="form-control  mr-lg-1" name="val" type="text" placeholder="Tablets, laptops ..." aria-label="Search">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar </button>
+        
+      </form>
       <ul class="navbar-nav ml-auto mr-5">
+       
         <li class="nav-item active">
           <a class="nav-link" href="/"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
         </li>
@@ -27,5 +30,6 @@
         </li>
     
       </ul>
+    
     </div>
   </nav>

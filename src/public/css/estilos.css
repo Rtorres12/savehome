@@ -31,6 +31,7 @@ width: 100%;
     color: white;
     
 }
+
 .carousel-control-prev{
     z-index: 3;
 }
@@ -91,3 +92,67 @@ z-index: 2;
     font-size: 40px;
     color: #444;
 }
+@media screen and (max-width: 990px) {
+    .banner-text {
+      font-size: 22px;
+    }
+    .navbar-brand {
+        font-size: 32px;
+      }
+      
+  }
+  @media screen and (max-width: 940px) {
+    .banner-text {
+      font-size: 20px;
+    }
+    .banner-tittle {
+        font-size: 28px;
+      }
+      
+  }
+  @media screen and (max-width: 875px) {
+    .banner-text {
+      font-size: 18px;
+    }
+    .banner-tittle {
+        font-size: 26px;
+      }
+      
+  }
+  @media screen and (max-width: 806px) {
+    .banner-text {
+      font-size: 16px;
+    }
+    .banner-tittle{
+        font-size: 24px;
+    }
+  }
+
+  @media screen and (max-width: 652px) {
+    .banner-text {
+      font-size: 13px;
+    }
+    .banner-tittle  {
+        font-size: 20px;
+      }
+      
+  }
+  @media screen and (max-width: 560px) {
+    .banner-text {
+      font-size: 10px;
+
+    }
+    .banner-tittle {
+        font-size: 17px;
+      }
+      
+  }
+  @media screen and (max-width: 500px) {
+    .banner-text {
+      font-size: 9px;
+    }
+    .banner-tittle  {
+        font-size: 15px;
+      }
+      
+  }
