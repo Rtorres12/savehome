@@ -35,9 +35,9 @@ app.use(morgan('dev'));
 app.use(myConnection(mysql, {
     
     host: 'savehome-server',
-    user: savehome,
-    password: savehome,
-    database: savehomebd,
+    user: 'savehome',
+    password: 'savehome',
+    database: 'savehomebd',
     port: '3306'
 },'single')) ;
 app.use(express.urlencoded({extended: false}));
