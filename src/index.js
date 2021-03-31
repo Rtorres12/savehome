@@ -34,9 +34,9 @@ app.use(multer({
 app.use(morgan('dev'));
 app.use(myConnection(mysql, {
     
-    host: process.env.HOST_NAME,
-    user: process.env.USER,
-    password: process.env.USER_PASSWORD,
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
     port: process.env.PORT
 },'single')) ;
