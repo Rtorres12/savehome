@@ -40,4 +40,29 @@ document.getElementById('nuevoProd').addEventListener("click",function(){
 
 });
 
+$(function(){
+    $('#categoria').change(function(){
+        $.ajax({
+            url:'/subcat/'+$('#categoria').val(),
+            success : function(subcategorias){
+                
+                tpl='<option val="0">Seleccione</option>'
+                
+                for (var i = 0; i < subcategorias.data.length; i++) {
+                    tpl+='<option value="'+subcategorias.data[i].id+'">'+subcategorias.data[i].subcategoria+'</option>';
+                    console.log(subcategorias.data[i].id)
+                }
+                $('#subcat').html(tpl);
+            }
+            
+
+        })
+
+    });
+
+    
+   
+
+})
+
 

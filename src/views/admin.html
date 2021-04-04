@@ -11,6 +11,25 @@
     <title>Document</title>
 <style>        h6.error{ color: red;}
 </style>
+<script>function subcat(idcat){
+
+  $.ajax({
+      url:'/subcat/'+$('#categoria1'+idcat).val(),
+      success : function(subcategorias){
+          
+          tpl='<option val="0">Seleccione</option>'
+          
+          for (var i = 0; i < subcategorias.data.length; i++) {
+              tpl+='<option value="'+subcategorias.data[i].id+'">'+subcategorias.data[i].subcategoria+'</option>';
+              console.log(subcategorias.data[i].id)
+          }
+          $('#subcat1'+idcat).html(tpl);
+      }
+      
+
+  })
+
+}</script>
   </head>
 <body>
     <%- include ('partials/nav.html')%>
@@ -34,17 +53,24 @@
         <div class="modal-body">
           <form id="productoform" action="/nuevoProd" method="POST" enctype="multipart/form-data" class="form-group">
 
+            <input type="hidden" name="id_prod" value="<%=data.length +1%>">
+
             <input type="file" name="prodImg" id="prodImg" accept="image/*" multiple />
 
 
             <label >Categoria</label>
 
-           <select class="custom-select" name="id_cat" >
+           <select id="categoria" class="custom-select" name="categoria" >
             <% for (var j = 0 ; j < data1.length ; j++ ) {%>
-              <option value="<%= data1[j].id_cat%>"><%=data1[j].categoria%></option>
+              <option value="<%=data1[j].id_cat%>"> <%=data1[j].categoria%></option>
               <%}%>
            </select>
+           <label >Subcategoria</label>
 
+           <select id="subcat" class="custom-select" name="subcategoria" >
+
+          </select>
+         
                     
             <label >Producto</label>
             <input type="text" name="nom_producto" class="form-control" >
@@ -66,7 +92,16 @@
                     </div>
                     <label type="text" class="form-control" aria-label="Text input with checkbox">Disponible</label>
                   </div>
-        
+                  <div class="form-check form-check-inline col-md-6">
+                    <input class="form-check-input" type="radio" name="recomendado" id="exampleRadios1" value="on" >
+                    <label class="form-check-label" for="inlineCheckbox1">                                  recomendado   
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input " type="radio" name="recomendado" id="exampleRadios2" value="off" checked>
+                    <label class="form-check-label" for="inlineCheckbox2">                                                           NO recomendado
+                    </label>
+                  </div>
 
         </div>
         <div class="modal-footer">
@@ -91,6 +126,8 @@
             <th scope="col">Producto</th>
             <th scope="col">Precio</th>
             <th scope="col">Categoria</th>
+            <th scope="col">subcategoria</th>
+
             <th scope="col">descripcion</th>
             <th scope="col">stock</th>
             <th scope="col">disponible</th>
@@ -127,12 +164,17 @@
                         <input type="text" disabled name="id_prod" value="<%=data[i].id_prod%>" class="disabled form-control" >
                         <label >Categoria</label>
                         
-                       <select class="custom-select" name="id_cat" >
-                        <% for (var j = 0 ; j < data1.length ; j++ ) {%>
-                          <option value="<%= data1[j].id_cat%> "><%=data1[j].categoria%></option>
-                          <%}%>
-                       </select>
+                        <select id="categoria1<%=data[i].id_prod%>" onchange="subcat('<%=data[i].id_prod%>')" class="custom-select categoria1" name="categoria" >
+                          <option value="<%=data[i].id_cat%>"><%=data[i].categoria%></option>
+                          <% for (var j = 0 ; j < data1.length ; j++ ) {%>
+                            <option value="<%=data1[j].id_cat%>"> <%=data1[j].categoria%></option>
+                            <%}%>
+                         </select>
+              
+                         <select  id="subcat1<%=data[i].id_prod%>"  class="custom-select " name="subcategoria" >
+                          <option value="<%=data[i].id_subcat%>"><%=data[i].subcategoria%></option>
 
+                        </select>
                         <label >Producto</label>
                         <input type="text" name="nom_producto" value="<%=data[i].nom_producto%>" class="form-control" >
                        
@@ -224,12 +266,13 @@
 
               <td width="100" > <img src="/prodImg/<%= data[i].prodImg%>" class="img-fluid" alt="no hay"></th>
                 <td width="100" > <img src="/prodImg/<%= data[i].prodImg2%>" class="img-fluid" alt="no hay"></th>
-                  <td width="100" > <img src="/prodImg/<%= data[i].prodImg3%>" class="img-fluid" alt="no hay"></th>
+                  <td width="100" > <img src="/prodImg/<%=data[i].prodimg3%>" class="img-fluid" alt="no hay"></th>
 
               
               <td><%= data[i].nom_producto %></td>
               <td><%= data[i].precio %></td>
               <td><%= data[i].categoria %></td>
+              <td><%= data[i].subcategoria %></td>
               <td><%= data[i].caracteristicas %></td>
 
               <td><%= data[i].stock %></td>
@@ -251,8 +294,9 @@
             <%}%>
         </tbody>
       </table>
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="/js/jquery-3.2.1.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+      
       <script src="/js/jquery.validate.min.js"></script>
       <script src="/js/admin.js"></script>
 </body>
