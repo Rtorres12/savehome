@@ -5,6 +5,8 @@ myConnection = require('express-myconnection'),
  mysql = require('mysql'),
 multer= require('multer');
  app = express();
+ const session = require('express-session');
+ const flash = require('connect-flash');
  const { v4: uuidv4 } = require('uuid');
 
 const storage = multer.diskStorage({
@@ -40,6 +42,14 @@ app.use(myConnection(mysql, {
     port: process.env.PORT
 },'single')) ;
 app.use(express.urlencoded({extended: false}));
+app.use(session({
+    secret:'savehome',
+    resave: false,
+saveUninitialized: false
+
+}));
+app.use(flash());
+
 
 //routes
 app.use(require('./routes/index.js'));

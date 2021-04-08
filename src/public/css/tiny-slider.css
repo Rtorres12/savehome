@@ -20,7 +20,7 @@
 
 .tns-controls [aria-controls] {
   font-size: 15px;
-  padding: 0 1em;
+  padding: 0 2em;
   height: 2.5em;
   color: #000;
   background: transparent;
@@ -29,6 +29,7 @@
   margin-top: 5px;
   width: 100%;
   margin-left: 5px;
+  margin-bottom: 5px;
   
 }
 .lt-ie9 .tns-controls > [aria-controls] {
