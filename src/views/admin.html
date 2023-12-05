@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" href="/css/summernote-bs4.css">
+
     <%- include ('partials/head.html')%>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/0.1.1/scrollReveal.min.js" integrity="sha512-FDQlM/I5n8d3aaXq+RCosJqohfgGdhzGeOR2SFdiN0nSfEp6MD+L1WvRGduPVu3DPO1yjDav7ICmoa3wJyVlxg==" crossorigin="anonymous"></script>
-
     <title>Admin</title>
 <style>     
 html{  overflow-x: auto !important;
@@ -102,7 +102,7 @@ h6.error{ color: red;}
 
 
   <div class="modal fade" id="modal-nuevoProd" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modal-title">Registrar nuevo producto</h5>
@@ -138,7 +138,7 @@ h6.error{ color: red;}
            </select>
            <label >Subcategoria</label>
 
-           <select id="subcat" class="custom-select" name="subcategoria" >
+           <select id="subcat" value="0" class="custom-select" name="subcategoria" >
 
           </select>
          
@@ -147,7 +147,7 @@ h6.error{ color: red;}
             <input type="text" name="nom_producto" class="form-control" >
            
             <label >Caracteristicas</label>
-              <textarea type="text" name="caracteristicas" rows="5" class="form-control" ></textarea>
+              <textarea  name="caracteristicas" class=" RichText form-control" ></textarea>> </textarea>
            
               <label >Stock</label>
                 <input type="text" name="stock" class="form-control" >
@@ -162,14 +162,16 @@ h6.error{ color: red;}
                   <span class="input-group-text form-control">%</span>
                 </div>
                 </div>
-                  <div class="input-group mb-3 mt-3">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <input name="disponible" type="checkbox">
-                      </div>
-                    </div>
-                    <label type="text" class="form-control" aria-label="Text input with checkbox">Disponible</label>
-                  </div>
+                <div class="form-check form-check-inline col-md-6">
+                  <input class="form-check-input" type="radio" name="disponible" id="exampleRadios1" value="on" checked>
+                  <label class="form-check-label" for="inlineCheckbox1">                                 Disponible 
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input " type="radio" name="disponible" id="exampleRadios2" value="off" >
+                  <label class="form-check-label" for="inlineCheckbox2">                                                           No Disponible
+                  </label>
+                </div>
                   <div class="form-check form-check-inline col-md-6">
                     <input class="form-check-input" type="radio" name="recomendado" id="exampleRadios1" value="on" >
                     <label class="form-check-label" for="inlineCheckbox1">                                  recomendado   
@@ -244,7 +246,6 @@ h6.error{ color: red;}
                         <input type="hidden" name="previmg2" value="<%=data[i].prodImg2%>">
                         <input type="hidden" name="previmg3" value="<%=data[i].prodImg3%>">
                         
-                        
                        <label >Categoria</label>
                         
                         <select id="categoria1<%=data[i].id_prod%>" onchange="subcat('<%=data[i].id_prod%>')" class="custom-select categoria1" name="categoria" >
@@ -264,7 +265,7 @@ h6.error{ color: red;}
                         <input type="text" name="nom_producto" value="<%=data[i].nom_producto%>" class="form-control" >
                        
                         <label >Caracteristicas</label>
-                          <textarea rows="5" type="text" name="caracteristicas" value="<%=data[i].caracteristicas%>" class="form-control" ><%=data[i].caracteristicas%></textarea>
+                          <textarea rows="5" type="text" name="caracteristicas" value="<%=data[i].caracteristicas%>" class="form-control RichText" ><%=data[i].caracteristicas%></textarea>
                        
                           <label >Stock</label>
                             <input type="text" name="stock"  value="<%=data[i].stock%>" class="form-control" >
@@ -358,7 +359,7 @@ h6.error{ color: red;}
 
               <td width="100" > <img src="/prodImg/<%= data[i].prodImg%>" class="img-fluid" alt="no hay"></th>
                 <td width="100" > <img src="/prodImg/<%= data[i].prodImg2%>" class="img-fluid" alt="no hay"></th>
-                  <td width="100" > <img src="/prodImg/<%=data[i].prodimg3%>" class="img-fluid" alt="no hay"></th>
+                  <td width="100" > <img src="/prodImg/<%=data[i].prodImg3%>" class="img-fluid" alt="no hay"></th>
 
               
               <td><%= data[i].nom_producto %></td>
@@ -368,7 +369,7 @@ h6.error{ color: red;}
               
               <td><%= data[i].categoria %></td>
               <td><%= data[i].subcategoria %></td>
-              <td><button type="button" class="btn btn-warning" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<%=data[i].caracteristicas %>">
+              <td><button type="button" class="btn btn-warning" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<%=data[i].caracteristicas%>">
                 Ver
               </button></td>
 
@@ -398,10 +399,13 @@ h6.error{ color: red;}
       
       <script src="/js/jquery.validate.min.js"></script>
       <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+      <script src="/js/summernote-bs4.min.js"></script>
+      
       <script src="/js/admin.js"></script>
       <script>$(function () {
-        $('[data-toggle="popover"]').popover()
+        $('[data-toggle="popover"]').popover({
+          html:true
+        })
       })</script>
 </body>
 </html>

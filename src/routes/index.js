@@ -2,14 +2,26 @@ const express= require('express');
 const router = express.Router();
 const bd_control = require('../controller/bd-controller');
 
-router.get('/',(req, res)=>{
-    res.render('principal.html');
+router.get('/categoria/:cat',bd_control.prodcat);
+router.get('/subcategoria/:cat',bd_control.prodsubcat);
 
-});
+router.get('/',bd_control.principal);
+
 router.get('/admin',(req, res)=>{
 
     res.render('login.html');
 });
+
+router.get('/login',(req, res)=>{
+
+    res.render('userlogin.html');
+});
+router.post('/nuevoUsuario',bd_control.addUser);
+
+router.post('/userlogin',bd_control.validateUser);
+
+router.get('/userRegister',bd_control.userRegister);
+
 
 router.post('/loginvalidate',bd_control.login);
 router.get('/adminpage/:username/:password',bd_control.log);

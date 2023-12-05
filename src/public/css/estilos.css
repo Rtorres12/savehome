@@ -7,13 +7,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&display=swap');
 
 html, body {
-  background-image: url('/img/fondo.svg'); 
+  background-image: url('/img/fondo1.svg'); 
 background-position: center center;
+
 }
 .medium-font{
     text-align: center;
     font-family: 'Dosis', sans-serif;
         font-size: 36px;
+}
+.caract::-webkit-scrollbar{
+width: 7px;
+
+}
+.caract::-webkit-scrollbar-thumb{
+  background:#4276FA;
+  border-radius: 5px;
 }
 .card-container{
 width: 60%;
@@ -73,7 +82,7 @@ z-index: 2;
 
 
 .navbar{
-    background-color: orange;
+    background-color: #4276FA;
     font-family: 'Dosis', sans-serif;     font-size: 20px;
     
 
@@ -88,6 +97,7 @@ z-index: 2;
   box-shadow: 10px 5px 5px black;;
 
 }
+
 .tns-controls{
    display: flex; 
 }
@@ -173,11 +183,11 @@ z-index: 2;
   }
   .oferta{
     top: 0.625rem;
-    border-color:orange;
+    border-color:#4276FA;
    
   }
   .resaltar{
-    background-color: orange;
+    background-color: #4276FA;
   }
    .oferta::before,.oferta::after{
     content: "";
@@ -197,3 +207,113 @@ z-index: 2;
    .oferta::after{
     border-bottom-color:inherit ;
    }
+   
+
+
+
+nav ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	overflow:hidden;
+}
+
+nav > ul > li {
+	float:left;
+}
+
+
+
+nav > ul > li:hover div {
+  
+  display:table;
+ 
+}
+
+/*Submenu*/
+nav ul li div {
+  
+	width:50%;
+  border-radius: 5px;
+	position: absolute;
+	left:0;
+  background-color: white;
+  background-image: url('/img/fondo.svg'); 
+
+  background-position: center center;
+	display:none;
+  margin-left: 1vw;
+  z-index: 100;
+  margin-top: 1.26rem;
+  padding-left: 20px;
+  padding-bottom: 20px;
+
+
+}
+nav ul li div::before {
+  width: 100%;
+  border: 25px solid transparent;
+  content: '';
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  position: absolute;
+  top: -50px;
+  transform:rotate(+180deg) ;
+  margin-top: 0.8rem;
+
+}
+
+nav ul li div ul{
+  font-family: 'Dosis', sans-serif;
+	width:20%;
+	display:table-cell;
+	border-right:1px solid rgba(255,255,255,.5);
+	box-sizing:border-box;
+}
+
+nav ul li div ul:last-child {
+
+	border:none;
+}
+
+nav ul li div ul .titulo {
+color: #4276FA;
+text-decoration: underline;
+font-family: 'Dosis', sans-serif;
+
+}
+
+nav ul li div ul .titulo a {
+    font-family: 'Dosis', sans-serif;
+
+	color:black;
+	padding:10px 20px;
+}
+
+
+nav ul li div ul .titulo a:hover {
+	background:none;
+  font-family: 'Dosis', sans-serif;
+
+}
+
+nav ul li div ul li a {
+	color:#000;
+  font-family: 'Dosis', sans-serif;
+
+}
+
+nav ul li div ul li a:hover {
+	color:#4276FA;
+  font-family: 'Dosis', sans-serif;
+
+}
+.card-hover:hover{
+  transform: translateY(-15px);
+  
+}
+.accordion{
+  background:white;
+  border-radius: 5px;
+}

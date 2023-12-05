@@ -308,14 +308,16 @@ input[type=text]:placeholder {
       </div>
   
       <!-- Login Form -->
-      <form method="post" action="/loginvalidate">
+      <form method="post" action="/userlogin" id="userform">
 
-        <input type="text" id="username" class="fadeIn second" name="username" placeholder="login">
-        <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-        <input type="submit" id="btnlogin" class="fadeIn fourth" value="Log In">
+        <input type="text"  class="fadeIn second" name="username" placeholder="login">
+        <input type="password"  class="fadeIn third" name="password" placeholder="password">
+
+        <input type="submit" class="fadeIn fourth" value="Log In">
+
+        <a href="/userRegister" >Registrarme</a>
 
       </form>
-  
     
   
     </div>

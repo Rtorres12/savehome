@@ -1,4 +1,4 @@
-$(document).ready(()=>{
+/* $(document).ready(()=>{
 $('th').each(function(columna){
     $(this).hover(function(){
         $(this).addClass('resaltar');
@@ -20,17 +20,37 @@ $(this).click(function(){
 })
 })
 
+}); */
+
+$(document).ready(function(){
+    $('.RichText').summernote({
+        toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['fontname', ['fontname']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+      ],}
+        
+    );
+
 });
 
-
 document.getElementById('nuevoProd').addEventListener("click",function(){
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg !== value;
+    }, "Value must not equal arg.");
     $('#productoform').validate({
         rules: {
             prodImg:{required:true},
             nom_producto: { required: true,maxlength:49},
             caracteristicas:{required:true, maxlength: 499},
             precio:{required:true, digits:true, maxlength:7},
-            stock:{required:true, digits:true, maxlength:7}
+            stock:{required:true, digits:true, maxlength:7},
+            categoria:{required: true, valueNotEquals:"0"},
+            subcategoria:{required: true, valueNotEquals:"0"},
+            descuento:{range:[1,99]}
            },
         messages: {
             prodImg:{
@@ -54,6 +74,17 @@ document.getElementById('nuevoProd').addEventListener("click",function(){
                 digits:"Caracter no admitido!",
                 maxlength:"Limite de digitos excedido"
 
+            },
+            categoria:{
+                required:"Seleccione categoria",
+                valueNotEquals:"Seleccione categoria"
+            },
+            subcategoria:{
+                required:"Seleccione subcategoria",
+                valueNotEquals:"Seleccione subcategoria"
+            },
+            descuento:{
+                range:"Numero no valido para descuento"
             }
         },
       errorElement : 'h6',
