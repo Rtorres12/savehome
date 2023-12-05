@@ -18,7 +18,7 @@ router.get('/login',(req, res)=>{
 });
 router.post('/nuevoUsuario',bd_control.addUser);
 
-router.post('/userlogin',bd_control.validateUser);
+router.get('/loginvalidate/:username/:password',bd_control.validateUser);
 
 router.get('/userRegister',bd_control.userRegister);
 

@@ -308,15 +308,15 @@ input[type=text]:placeholder {
       </div>
   
       <!-- Login Form -->
-      <form method="post" action="/userlogin" id="userform">
+      <form method="post"  id="userform">
 
-        <input type="text"  class="fadeIn second" name="username" placeholder="login">
-        <input type="password"  class="fadeIn third" name="password" placeholder="password">
+        <input type="text" id="username" class="fadeIn second" name="username" placeholder="login">
+        <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
 
-        <input type="submit" class="fadeIn fourth" value="Log In">
+        <input type="button" id="login" class="fadeIn fourth" value="Log In">
 
         <a href="/userRegister" >Registrarme</a>
-
+        <a id="error-message" class="text-danger" ></a>
       </form>
     
   
@@ -330,7 +330,32 @@ input[type=text]:placeholder {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/0.1.1/scrollReveal.min.js" integrity="sha512-FDQlM/I5n8d3aaXq+RCosJqohfgGdhzGeOR2SFdiN0nSfEp6MD+L1WvRGduPVu3DPO1yjDav7ICmoa3wJyVlxg==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 <script src="/js/login.js"></script>
+<script>
+  
+ $('#login').click(function(){
 
+$.ajax({
+    url:'/loginvalidate/'+$('#username').val()+'/'+btoa($('#password').val()),
+    success : function(data){
+        if (Object.keys(data.userDataForSession[0]).length > 0) {
+            console.log(data);
+            localStorage.setItem('userDataForSession', JSON.stringify(data.userDataForSession));
+            window.location.href = '/producto';
+        } else {
+            // La autenticación falló, mostrar un mensaje de error
+            console.log('Error de autenticación');
+            // Mostrar un mensaje de error en tu interfaz de usuario, por ejemplo:
+            $('#error-message').text('Credenciales incorrectas');
+        }
+        
+    }
+})
+$('#password').val()
+$('#username').val()
+
+}); 
+
+</script>
 </body>
 </html>
 

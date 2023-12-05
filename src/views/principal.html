@@ -13,6 +13,7 @@
 </style>
   </head>
   <body>
+    
     <%- include ('partials/nav.html')%>
 
    <%- include ('partials/carousel.html')%>
@@ -158,7 +159,45 @@
 
 
     </script>
+    
 
   </body>
 
 </html>
+
+<script>
+  $(document).ready(function(){
+
+// Recuperar la información de sesión del localStorage
+var userDataForSession = localStorage.getItem('userDataForSession');
+
+// Obtener el elemento donde se mostrará la información de sesión
+var sessionInfoElement = document.getElementById('sessionInfo');
+
+// Verificar si hay información de sesión
+if (userDataForSession) {
+// La sesión existe, muestra la información de sesión
+var userData = JSON.parse(userDataForSession);
+console.log(userData)
+sessionInfoElement.innerHTML = '  <a class="nav-link text-dark" type="button" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas text-light fa-user"></i> '+userData[0][0].FullName+' </a> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#">Mis pedidos</a> <a class="dropdown-item" id="cerrarSesionBtn" href="#">Cerrar sesión</div>';
+} else {
+// No hay sesión, muestra el enlace "Log In"
+sessionInfoElement.innerHTML = ' <a class="nav-link text-dark" href="/login"><i class="fas text-light fa-user"></i> Log In</a>';
+}
+})
+
+
+$('#cerrarSesionBtn').on('click', function() {
+    cerrarSesion();
+});
+
+// ...
+
+// Función para cerrar la sesión
+function cerrarSesion() {
+    // Limpiar la información de sesión en el localStorage
+    localStorage.removeItem('userDataForSession');
+    // Redirige a la página de inicio después de cerrar sesión
+    window.location.href = '/';
+}
+</script>   

@@ -1,4 +1,9 @@
 $(document).ready(function(){
+
+
+
+
+
 	console.log($('#cat').val());
 	
 	if(typeof $('#cat').val() !== 'undefined'){

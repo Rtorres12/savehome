@@ -2,10 +2,10 @@ const controller = {};
 
 controller.validateUser = (req,res)=>{
 
-    const data= req.body;
+    const data= req.params;
     console.log("aasdsd");
 
-     console.log(req.body);
+     console.log(req.params);
     req.getConnection((err, conn) => {
 
         conn.query('CALL ValidateUserLogin (?,?)',[data.username,data.password], (err, login) => {
@@ -16,9 +16,7 @@ controller.validateUser = (req,res)=>{
             if(login.length == 0){
                 res.json("error");
             }
-            res.render('userlogin.html', {
-                data1:login
-             });
+            res.json({ userDataForSession: login });
          
         });
       });

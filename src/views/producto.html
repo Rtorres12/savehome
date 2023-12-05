@@ -14,11 +14,13 @@
           }
       
           </style>
+      
+          
 </head>
 <body >
 
     <%- include ('partials/nav.html')%>
-
+    
   
   </div>
       <div id="carouselExampleIndicators"  class="ml-2 mt-3 mr-2 carousel slide shadow " data-ride="carousel">
@@ -309,73 +311,108 @@
 
   
 
-   
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-   <script src ="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+
+
+
+<%- include ('partials/footer.html')%>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script><script src ="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/0.1.1/scrollReveal.min.js" integrity="sha512-FDQlM/I5n8d3aaXq+RCosJqohfgGdhzGeOR2SFdiN0nSfEp6MD+L1WvRGduPVu3DPO1yjDav7ICmoa3wJyVlxg==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 <script src="/js/filtrar.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
 <script src="/js/jquery.richtext.min.js"></script>
 
-
 <%if (datascroll=='on' ){%>
-<script>
-
-var scroll = new SmoothScroll();
-
-scroll.animateScroll(1200);
-
- </script>
-<%}%>
-        <script>
-        let slider = tns({
-  container: '.my-slider',
-  slideBy: '1',
-  autoplay: true,
-  nav : false,
-  autoplay: true,
-  autoplayButtonOutput:false,
-    mouseDrag: true,
-  autoWidth: true,
-  loop:true,
-  speed:500,
-  controlsPosition:'bottom',
-  controlsText: ["<i style='font-size:3vw'  class='fas fa-long-arrow-alt-left'></i>","<i  style='font-size:3vw' class='fas fa-long-arrow-alt-right'></i>"]
-});
-      window.sr=ScrollReveal();
-
+  <script>
+  
+  var scroll = new SmoothScroll();
+  
+  scroll.animateScroll(1200);
+  
+   </script>
+  <%}%>
+          <script>
+          let slider = tns({
+    container: '.my-slider',
+    slideBy: '1',
+    autoplay: true,
+    nav : false,
+    autoplay: true,
+    autoplayButtonOutput:false,
+      mouseDrag: true,
+    autoWidth: true,
+    loop:true,
+    speed:500,
+    controlsPosition:'bottom',
+    controlsText: ["<i style='font-size:3vw'  class='fas fa-long-arrow-alt-left'></i>","<i  style='font-size:3vw' class='fas fa-long-arrow-alt-right'></i>"]
+  });
+        window.sr=ScrollReveal();
+  
+        
+  
+        sr.reveal('.header-content-left',{
+          duration: 2000,
+          origin: 'left',
+          distance: '200px'
+        });
+        sr.reveal('.header-content-right',{
+          duration: 2000,
+          origin: 'left',
+          distance: '200px'
+        });
+        sr.reveal('.info-left',{
+          duration: 2000,
+          origin: 'left',
+          distance: '200px'
+        });
+  
+        sr.reveal('.info-right',{
+          duration: 2000,
+          origin: 'left',
+          distance: '200px'
+        });
+  
       
+      
+      </script>
+      <script>
 
-      sr.reveal('.header-content-left',{
-        duration: 2000,
-        origin: 'left',
-        distance: '200px'
-      });
-      sr.reveal('.header-content-right',{
-        duration: 2000,
-        origin: 'left',
-        distance: '200px'
-      });
-      sr.reveal('.info-left',{
-        duration: 2000,
-        origin: 'left',
-        distance: '200px'
-      });
+            
+        window.onload = function(){
+      
+      // Recuperar la información de sesión del localStorage
+      var userDataForSession = localStorage.getItem('userDataForSession');
+      
+      // Obtener el elemento donde se mostrará la información de sesión
+      var sessionInfoElement = document.getElementById('sessionInfo');
+      
+      // Verificar si hay información de sesión
+      if (userDataForSession) {
+      // La sesión existe, muestra la información de sesión
+      var userData = JSON.parse(userDataForSession);
+      console.log(userData)
+      sessionInfoElement.innerHTML = '  <a class="nav-link text-dark" type="button" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas text-light fa-user"></i> '+userData[0][0].FullName+' </a> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#">Mis pedidos</a> <a class="dropdown-item" id="cerrarSesionBtn" href="#">Cerrar sesion</div>';
+      } else {
+      // No hay sesión, muestra el enlace "Log In"
+      sessionInfoElement.innerHTML = ' <a class="nav-link text-dark" href="/login"><i class="fas text-light fa-user"></i> Log In</a>';
+      }
+      }
+      $(document).on('click', '#cerrarSesionBtn', function() {
+    cerrarSesion();
+});
 
-      sr.reveal('.info-right',{
-        duration: 2000,
-        origin: 'left',
-        distance: '200px'
-      });
+        // ...
 
-    
-    
-    </script>
-
-
-<%- include ('partials/footer.html')%>
+        // Función para cerrar la sesión
+        function cerrarSesion() {
+            // Limpiar la información de sesión en el localStorage
+            localStorage.removeItem('userDataForSession');
+            // Redirige a la página de inicio después de cerrar sesión
+            window.location.href = '/';
+        }
+      </script>
   </body>
 
 </html>

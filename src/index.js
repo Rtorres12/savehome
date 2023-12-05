@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 
 
 //settings
-app.set('port',4001);
+app.set('port',4003);
 app.set('view engine', 'ejs');
 app.engine('html',require('ejs').renderFile);
 app.set('views',path.join(__dirname, 'views'));
@@ -38,7 +38,7 @@ app.use(myConnection(mysql, {
     host:   'deltronbd.c4rtlofkmuyj.us-east-1.rds.amazonaws.com',
     user: 'admin',
     password: 'admin123',
-    database: 'deltronbd',
+    database: 'deltrondb',
     port: 3306
 },'single')) ;
 app.use(express.urlencoded({extended: false}));
