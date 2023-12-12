@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Carrito de Compras</title>
+    <%- include ('partials/head.html')%>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 15px;
+            transition: box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .product-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .input-group {
+            width: 100px; /* Ajusta según tus necesidades */
+        }
+
+        .cart-summary {
+            background-color: #f2f2f2;
+            border-radius: 8px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <%- include ('partials/nav.html')%>
+    <div class="container">
+        <h2>Carrito de Compras</h2>
+    
+        <div class="row">
+            <!-- Sección de Productos -->
+            <div class="col-md-8" id="productos-container">
+                <!-- Aquí se agregarán dinámicamente los productos -->
+            </div>
+    
+            <!-- Sección de Resumen de Compra -->
+            <div class="col-md-4">
+                <div class="cart-summary">
+                    <h4>Resumen de Compra</h4>
+                    <p>Total de productos: <span id="total-productos">0</span></p>
+                    <p>Monto Total: S/<span id="monto-total">0.00</span></p>
+                    <button class="btn btn-success btn-block">Realizar Pago</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!-- Script de Bootstrap y jQuery (asegúrate de incluir jQuery antes de Bootstrap) -->
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script><script src ="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/0.1.1/scrollReveal.min.js" integrity="sha512-FDQlM/I5n8d3aaXq+RCosJqohfgGdhzGeOR2SFdiN0nSfEp6MD+L1WvRGduPVu3DPO1yjDav7ICmoa3wJyVlxg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+<script src="/js/filtrar.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
+<script src="/js/jquery.richtext.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Reemplaza 'tu_id' con el valor real del ID que deseas enviar
+        var userDataForSession = localStorage.getItem('userDataForSession');
+
+        var userData = JSON.parse(userDataForSession);
+        var idUsuario = userData[0][0].IdPerson;
+        // Realiza la consulta GET con Ajax
+        $.ajax({
+    type: "GET",
+    url: "/getCarrito/" + idUsuario,
+    success: function (response) {
+        // Maneja la respuesta del servidor
+        console.log(response);
+
+        // Obtén el contenedor de productos
+        var productosContainer = $('#productos-container');
+
+        // Limpia el contenido actual
+        productosContainer.empty();
+
+        // Verifica si 'carrito' está presente en la respuesta antes de iterar sobre él
+        if (response.carrito && Array.isArray(response.carrito[0])) {
+            var totalProductos = 0;
+              var montoTotal = 0;
+            // Itera sobre los productos y agrega dinámicamente al contenedor
+            response.carrito[0].forEach(function (producto) {
+                // Crea un nuevo elemento de producto
+                var productCard = $('<div class="product-card"><div class="row"></div></div>');
+
+                // Agrega la imagen del producto
+                productCard.find('.row').append('<div class="col-md-4"><img src="/prodImg/' + producto.prodImg + '" alt="' + producto.nom_producto + '" class="product-img"></div>');
+
+                // Agrega la información del producto
+                var productDetails = $('<div class="col-md-4"><div class="product-details"></div></div>');
+
+                productDetails.append('<h4>' + producto.nom_producto + '</h4>');
+                productDetails.append('<p class="precio">Precio: $' + (producto.precio - (producto.precio * (producto.descuento/100))).toFixed(2) + '</p>');
+
+                var productDetails2 = $('<div class="col-md-4 d-flex align-items-center justify-content-center"> </div>');
+                productDetails2.append('<div class="input-group"><span class="input-group-btn"><button type="button" class="btn btn-outline-secondary btn-minus">-</button></span><input type="text" style=" width: 25%;" class="" value="'+producto.total_cantidad+'"><span class="input-group-btn"><button type="button" class="btn btn-outline-secondary btn-plus">+</button></span></div>');
+             
+
+
+                totalProductos += producto.total_cantidad;
+                montoTotal += producto.precio * producto.total_cantidad;
+
+                $('#total-productos').text(totalProductos);
+            $('#monto-total').text(montoTotal.toFixed(2)); // Asegúrate de formatear el monto total según tus necesidades
+   
+
+
+                // Agrega los detalles del producto al contenedor
+                productCard.find('.row').append(productDetails);
+                productCard.find('.row').append(productDetails2);
+
+                // Agrega el producto al contenedor principal
+                productosContainer.append(productCard);
+
+                
+            });
+        } else {
+            console.error("La respuesta no contiene un array 'carrito':", response);
+        }
+    },
+    error: function (error) {
+        // Maneja el error en caso de que la solicitud no sea exitosa
+        console.error("Error en la solicitud Ajax:", error);
+    }
+});
+
+
+    });
+</script>
+<script>
+    $(document).ready(function(){
+  
+  var userDataForSession = localStorage.getItem('userDataForSession');
+  
+  var sessionInfoElement = document.getElementById('sessionInfo');
+  
+  if (userDataForSession) {
+  var userData = JSON.parse(userDataForSession);
+  console.log(userData)
+  sessionInfoElement.innerHTML = '  <a class="nav-link text-dark" type="button" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas text-light fa-user"></i> '+userData[0][0].FullName+' </a> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="/carrito">Mis pedidos</a> <a class="dropdown-item" id="cerrarSesionBtn" href="#">Cerrar sesión</div>';
+  } else {
+  // No hay sesión, muestra el enlace "Log In"
+  sessionInfoElement.innerHTML = ' <a class="nav-link text-dark" href="/login"><i class="fas text-light fa-user"></i> Log In</a>';
+  }
+  })
+  
+  $(document).on('click', '#cerrarSesionBtn', function() {
+      cerrarSesion();
+  }); 
+  // ...
+  
+  // Función para cerrar la sesión
+  function cerrarSesion() {
+      // Limpiar la información de sesión en el localStorage
+      localStorage.removeItem('userDataForSession');
+      // Redirige a la página de inicio después de cerrar sesión
+      window.location.href = '/';
+  }
+  </script>   
+<script>
+function actualizarMonto(){
+
+
+
+}
+  </script>   
+  
+</body>
+</html>

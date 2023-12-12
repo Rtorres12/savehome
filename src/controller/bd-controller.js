@@ -1,4 +1,84 @@
 const controller = {};
+controller.insertCarrito = (req, res) => {
+    const data = req.body;
+
+    // Asegúrate de que los nombres de los campos en req.body coincidan con los nombres esperados
+    const id_person = data.id_person;  // Reemplaza 'id_person' con el nombre real en req.body
+    const id_prod = data.id_prod;      // Reemplaza 'id_prod' con el nombre real en req.body
+
+    req.getConnection((err, conn) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send('Error en la conexión a la base de datos');
+        }
+
+        const params = [id_prod, id_person];
+
+        conn.query('CALL InsertarCarrito (?, ?)', params, (err, result) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).send('Error al insertar en el carrito');
+            }
+
+            console.log(result);
+            
+
+            res.json({ retval: result });
+        });
+    });
+};
+
+ 
+controller.carrito = (req,res)=>{
+    
+    req.getConnection((err, conn) => {
+       
+
+        conn.query('SELECT * FROM categoria', (err, categoria) => {
+            if (err) {
+             res.json(err);
+            }
+
+            console.log(categoria);
+             conn.query('SELECT * FROM subcategoria', (err, subcategoria) => {
+                if (err) {
+                 res.json(err);
+                }
+                console.log(subcategoria);
+
+                res.render('carrito.html', {
+                    data2:subcategoria,
+                    data1:categoria,
+           
+        });
+    
+           
+           });
+         
+         
+        });
+      });
+}
+
+controller.getCarrito =(req,res) =>
+{
+    const data =req.params;
+
+    req.getConnection((err, conn) => {
+
+            conn.query('CALL ObtenerCarrito (?)',[data.IdPerson], (err, result) => {
+            if (err) {
+            res.json(err);
+            }
+            console.log(result)
+                if(result.length == 0){
+                    res.json("error");
+                }
+                res.json({ carrito: result });
+            
+            });
+        });
+}
 
 controller.validateUser = (req,res)=>{
 

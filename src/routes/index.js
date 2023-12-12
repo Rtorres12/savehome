@@ -12,6 +12,9 @@ router.get('/admin',(req, res)=>{
     res.render('login.html');
 });
 
+router.get('/carrito',bd_control.carrito);
+
+
 router.get('/login',(req, res)=>{
 
     res.render('userlogin.html');
@@ -36,5 +39,7 @@ router.post('/nuevoProd',bd_control.add);
 router.get('/deleteProd/:id/:user/:password',bd_control.delete);
 router.post('/editProd/:id',bd_control.edit);
 
+router.get('/getCarrito/:IdPerson',bd_control.getCarrito);
+router.post('/insertCarrito',bd_control.insertCarrito);
 
 module.exports = router;

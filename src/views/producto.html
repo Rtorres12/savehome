@@ -264,7 +264,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <a target="_blank" href='https://api.whatsapp.com/send?phone=51986394402&text=Hola!,%20Me%20gustaria%20obtener%20informacion%20sobre%20<%=data[i].nom_producto%>'"  class="btn btn-primary">Enviar mensaje</a>
+                <a target="_blank"  data-id-prod="<%=data[i].id_prod%>" class="btn btn-primary insertCarrito">agregar</a>
               </div>
             </div>
           </div>
@@ -315,7 +315,7 @@
 
 
 <%- include ('partials/footer.html')%>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="/js/jquery-3.2.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script><script src ="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/0.1.1/scrollReveal.min.js" integrity="sha512-FDQlM/I5n8d3aaXq+RCosJqohfgGdhzGeOR2SFdiN0nSfEp6MD+L1WvRGduPVu3DPO1yjDav7ICmoa3wJyVlxg==" crossorigin="anonymous"></script>
@@ -323,6 +323,7 @@
 <script src="/js/filtrar.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
 <script src="/js/jquery.richtext.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <%if (datascroll=='on' ){%>
   <script>
@@ -377,6 +378,48 @@
       
       
       </script>
+    <script>
+      $(document).ready(function () {
+          // Agrega un controlador de eventos a la clase insertCarrito
+            $(document).on('click', '.insertCarrito', function() {
+
+              event.preventDefault();  // Previene la acción predeterminada del enlace
+  
+              // Obtén el id_prod del atributo data-id-prod
+              var id_prod = $(this).data('id-prod');
+  
+              // Obtén el id_person desde el campo data-id-person en el mismo contenedor
+              var userDataForSession = localStorage.getItem('userDataForSession');
+
+                var userData = JSON.parse(userDataForSession);
+                var id_person = userData[0][0].IdPerson;
+            // Lógica para obtener los datos necesario  
+              // Realiza la petición POST con AJAX
+              $.ajax({
+                  type: 'POST',
+                  url: '/insertCarrito',  // Reemplaza con la ruta correcta de tu servidor
+                  data: {
+                      id_prod: id_prod,
+                      id_person: id_person
+                      // Agrega más datos si es necesario
+                  },
+                  success: function (response) {
+                      // Lógica para manejar la respuesta exitosa
+                      Swal.fire({
+                        icon: 'success',
+                        title: '¡Producto agregado a sus pedidos!',
+                        showConfirmButton: true,
+                        timer: 1500
+                      })
+                  },
+                  error: function (error) {
+                      // Lógica para manejar errores
+                      console.error('Error en la petición AJAX:', error);
+                  }
+              });
+          });
+      });
+  </script>
       <script>
 
             
@@ -393,12 +436,13 @@
       // La sesión existe, muestra la información de sesión
       var userData = JSON.parse(userDataForSession);
       console.log(userData)
-      sessionInfoElement.innerHTML = '  <a class="nav-link text-dark" type="button" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas text-light fa-user"></i> '+userData[0][0].FullName+' </a> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#">Mis pedidos</a> <a class="dropdown-item" id="cerrarSesionBtn" href="#">Cerrar sesion</div>';
+      sessionInfoElement.innerHTML = '  <a class="nav-link text-dark" type="button" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas text-light fa-user"></i> '+userData[0][0].FullName+' </a> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="/carrito">Mis pedidos</a> <a class="dropdown-item" id="cerrarSesionBtn" href="#">Cerrar sesion</div>';
       } else {
       // No hay sesión, muestra el enlace "Log In"
       sessionInfoElement.innerHTML = ' <a class="nav-link text-dark" href="/login"><i class="fas text-light fa-user"></i> Log In</a>';
       }
       }
+      
       $(document).on('click', '#cerrarSesionBtn', function() {
     cerrarSesion();
 });
